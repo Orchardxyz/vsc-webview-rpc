@@ -1,9 +1,10 @@
 name: Version and Publish Package
 
 on:
-  push:
-    branches:
-      - main
+  # temporarily manual; re-enable for official release
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
 
 permissions:
