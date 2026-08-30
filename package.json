@@ -1,0 +1,87 @@
+{
+  "name": "vsc-webview-rpc",
+  "version": "0.0.0",
+  "description": "Lightweight, contract-first, type-safe RPC between VS Code extension hosts and webviews.",
+  "keywords": [
+    "vscode",
+    "visual-studio-code",
+    "vscode-extension",
+    "webview",
+    "rpc",
+    "ipc",
+    "typescript",
+    "type-safe"
+  ],
+  "homepage": "https://github.com/Orchardxyz/vsc-webview-rpc#readme",
+  "bugs": {
+    "url": "https://github.com/Orchardxyz/vsc-webview-rpc/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Orchardxyz/vsc-webview-rpc.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.33.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:status": "changeset status",
+    "package:check": "publint && attw --pack . && pnpm pack --dry-run",
+    "release:check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm package:check",
+    "prepublishOnly": "node --eval \"if (require('./package.json').version === '0.0.0') { console.error('Refusing to publish the initialization version 0.0.0.'); process.exit(1); }\"",
+    "prepack": "pnpm build"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.2",
+    "@changesets/cli": "^2.31.0",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@oryz/eslint-config": "^1.0.1",
+    "@oryz/prettier-config": "^1.0.0",
+    "@types/node": "^24.0.0",
+    "eslint": "^10.0.0",
+    "globals": "^17.0.0",
+    "prettier": "^3.6.2",
+    "publint": "^0.3.12",
+    "tsdown": "^0.22.14",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.4"
+  }
+}
